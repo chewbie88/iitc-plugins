@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@crytix
 // @category       Info
-// @version        0.2.7
+// @version        0.2.8
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/reims_inventory_sheet_helper.user.js
 // @description    Exports your inventory to the Inventroy form of the anomaly.
@@ -55,7 +55,7 @@ function wrapper(plugin_info) {
         MULTIHACK: 'Multi-Hack',
         PLAYER_POWERUP: 'Apex',
         PORTAL_LINK_KEY: 'Key',
-        PORTAL_POWERUP: 'Fracker',
+        FRACK: 'Fracker',
         POWER_CUBE: 'PC',
         RES_SHIELD: 'Shield',
         TRANSMUTER_ATTACK: 'ITO -',
@@ -278,7 +278,7 @@ function wrapper(plugin_info) {
         params.push(`entry.1236932839=${getCountByItem('Ultra-Link', 'VERY_RARE')}`);
         params.push(`entry.1021138318=${getCountByItem('Multi-Hack', 'COMMON') + getCountByItem('HS', 'COMMON') + getCountByItem('Shield', 'COMMON') + getCountByItem('LA', 'RARE')}`);
         params.push(`entry.1765137529=${getCountByItem('Hypercube', 'VERY_RARE')}`);
-        params.push(`entry.1551441511=${getCountByItem('Fracker', 'VERY_RARE')}`);
+        params.push(`entry.1551441511=${getCountByItem('Powerup Fracker', 'VERY_RARE')}`);
         params.push(`entry.1265876923=${getCountByItem('Capsule', 'RARE')}`);
         params.push(`entry.196716188=${getCountByItem('Key Capsule', 'VERY_RARE')}`);
         //params.push(`entry=${getCountByItem('Powerup BB_BATTLE', 'VERY_RARE')}`);

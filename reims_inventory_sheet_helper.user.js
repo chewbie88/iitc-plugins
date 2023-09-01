@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@crytix
 // @category       Info
-// @version        0.2.10
+// @version        0.2.11
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @updateURL      https://github.com/chewbie88/iitc-plugins/raw/main/reims_inventory_sheet_helper.meta.js
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/raw/main/reims_inventory_sheet_helper.user.js
@@ -33,7 +33,7 @@ function wrapper(plugin_info) {
     plugin_info.buildName = "InventoryExport";
 
     // Datetime-derived version of the plugin
-    plugin_info.dateTimeVersion = "202309012022";
+    plugin_info.dateTimeVersion = "202309012102";
 
     // ID/name of the plugin
     plugin_info.pluginId = "InventoryExport";
@@ -218,13 +218,7 @@ function wrapper(plugin_info) {
             title: 'Export Inventory',
             id: 'export-dialog',
             closeCallback: function () {
-                var position = document.getElementById('position-dropdown').value;
-                var anomalyExperience = document.getElementById('anomaly-dropdown').value;
-                var dateTime = document.getElementById('datetime-picker').value;
-
-                localStorage.setItem('position', position);
-                localStorage.setItem('anomalyExperience', anomalyExperience);
-                localStorage.setItem('dateTime', dateTime);
+                saveData();
             }
         }).dialog('option', 'buttons', {
             'Close': function () {
@@ -232,12 +226,15 @@ function wrapper(plugin_info) {
             },
             'Submit': function () {
                 exportInventory();
+                saveData();
             }
         });
 
-        document.getElementById('position-dropdown').value = localStorage.getItem('position') || 'Agent';
-        document.getElementById('anomaly-dropdown').value = localStorage.getItem('anomalyExperience') || 'First';
-        document.getElementById('datetime-picker').value = localStorage.getItem('dateTime') || getCurrentDateTime();
+        const localData = JSON.parse(localStorage[KEY_SETTINGS]);
+
+        document.getElementById('position-dropdown').value = localData['position'] || 'Agent';
+        document.getElementById('anomaly-dropdown').value  = localData['anomalyExperience'] || 'First';
+        document.getElementById('datetime-picker').value   = localData['dateTime'] || getCurrentDateTime();
     }
 
     // Gets the current date and time as a string
@@ -262,7 +259,7 @@ function wrapper(plugin_info) {
         const params = [];
         params.push(`entry.1129573356=${window.PLAYER.nickname}`);
         params.push(`entry.19306010=${document.getElementById('position-dropdown').value}`);
-        params.push(`entry.1015123770=${document.getElementById('anomaly-dropdown').value}`);
+        params.push(`entry.1015123770=${encodeURIComponent(document.getElementById('anomaly-dropdown').value)}`);
         params.push(`entry.2079800867=${document.getElementById('datetime-picker').value}`);
         params.push(`entry.642559206=${getCountByItem('Resonator 4', 'COMMON')}`);
         params.push(`entry.279802161=${getCountByItem('Resonator 5', 'COMMON')}`);
@@ -285,6 +282,19 @@ function wrapper(plugin_info) {
         //params.push(`entry=${getCountByItem('Powerup BB_BATTLE', 'VERY_RARE')}`);
         window.open(link + params.join('&'), '_blank')
     };
+
+    function saveData() {
+        var position = document.getElementById('position-dropdown').value;
+        var anomalyExperience = document.getElementById('anomaly-dropdown').value;
+        var dateTime = document.getElementById('datetime-picker').value;
+
+        const localData = JSON.parse(localStorage[KEY_SETTINGS]);
+        localData['position'] = position;
+        localData['anomalyExperience'] = anomalyExperience;
+        localData['dateTime'] = dateTime;
+
+        localStorage[KEY_SETTINGS] = JSON.stringify(localData);
+    }
 
     // Loads the inventory data and prepares it for export
     function loadInventory() {

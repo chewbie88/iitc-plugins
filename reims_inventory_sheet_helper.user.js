@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@crytix
 // @category       Info
-// @version        0.2.9
+// @version        0.2.10
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @updateURL      https://github.com/chewbie88/iitc-plugins/raw/main/reims_inventory_sheet_helper.meta.js
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/raw/main/reims_inventory_sheet_helper.user.js
@@ -33,7 +33,7 @@ function wrapper(plugin_info) {
     plugin_info.buildName = "InventoryExport";
 
     // Datetime-derived version of the plugin
-    plugin_info.dateTimeVersion = "202307061810";
+    plugin_info.dateTimeVersion = "202309012022";
 
     // ID/name of the plugin
     plugin_info.pluginId = "InventoryExport";

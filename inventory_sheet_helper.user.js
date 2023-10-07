@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@chewbi88
 // @category       Info
-// @version        0.2.12
+// @version        0.2.13
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @updateURL      https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.meta.js
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.user.js
@@ -33,7 +33,7 @@ function wrapper(plugin_info) {
     plugin_info.buildName = "InventoryExport";
 
     // Datetime-derived version of the plugin
-    plugin_info.dateTimeVersion = "202310071544";
+    plugin_info.dateTimeVersion = "202310071550";
 
     // ID/name of the plugin
     plugin_info.pluginId = "InventoryExport";
@@ -145,7 +145,6 @@ function wrapper(plugin_info) {
             return [];
         }
         const countMap = {};
-        console.log(data.result);
         data.result.forEach((item) => {
             addItemToCount(item, countMap, 1);
             if (item[2].container) {

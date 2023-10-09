@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@chewbi88
 // @category       Info
-// @version        0.2.13
+// @version        0.2.14
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @updateURL      https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.meta.js
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.user.js

@@ -3,7 +3,7 @@
 // @author         Chewbi88, Crytix EisFrei
 // @id             iitc-plugin-inventory-export@chewbi88
 // @category       Info
-// @version        0.2.13
+// @version        0.2.14
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @updateURL      https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.meta.js
 // @downloadURL    https://github.com/chewbie88/iitc-plugins/raw/main/inventory_sheet_helper.user.js
@@ -33,7 +33,7 @@ function wrapper(plugin_info) {
     plugin_info.buildName = "InventoryExport";
 
     // Datetime-derived version of the plugin
-    plugin_info.dateTimeVersion = "202310071550";
+    plugin_info.dateTimeVersion = "202310091355";
 
     // ID/name of the plugin
     plugin_info.pluginId = "InventoryExport";
@@ -224,6 +224,7 @@ function wrapper(plugin_info) {
                     <h4>Estimate Time of Arrival:</h4>
                     <input type="datetime-local" id="datetime-picker">
                 </p>
+                <a id="inventory-export-url" style="display:none" target="_blank" href="">Export url</a>
             </div>
         `,
             title: 'Export Inventory',
@@ -308,7 +309,13 @@ function wrapper(plugin_info) {
             'Powerup OBSIDIAN', // Beacon Obsidian
             'Powerup NEMESIS', // Beacon Nemesis
         ]})}`);
-        window.open(link + params.join('&'), '_blank')
+
+        document.getElementById('inventory-export-url').style.display = 'block';
+        linkBtn.attr("href", link + params.join('&'));
+
+        if (window.innerWidth > 800) {
+            window.open(link + params.join('&'), '_blank');
+        }
     };
 
     function saveData() {
@@ -343,11 +350,11 @@ function wrapper(plugin_info) {
                 window.postAjax('getInventory', {
                     "lastQueryTimestamp": 0
                 }, (data, textStatus, jqXHR) => {
-                    localStorage[KEY_SETTINGS] = JSON.stringify({
-                        data: data,
-                        expires: Date.now() + 10 * 60 * 1000, // request data only once per five minutes, or we might hit a rate limit
-                        settings: settings
-                    });
+                    localData['data'] = data;
+                    localData['settings'] = settings;
+                    localData['expires'] = Date.now() + 10 * 60 * 1000; // request data only once per five minutes, or we might hit a rate limit
+                    localStorage[KEY_SETTINGS] = JSON.stringify(localData);
+
                     prepareData(data);
                 }, (data, textStatus, jqXHR) => {
                     console.error(data);
